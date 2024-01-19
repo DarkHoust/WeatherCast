@@ -1,0 +1,37 @@
+input {
+    border: none;
+    outline: none;
+}
+
+body{ 
+    overflow-x: hidden;
+}
+
+.bg-sec {
+    background-color: rgb(145,207,236);
+}
+
+.w-99{
+    width: 99.3%;
+}
+
+/* .blur { 
+	-webkit-filter: blur(3px); 
+	-moz-filter: blur(3px); 
+	-o-filter: blur(3px); 
+	-ms-filter: blur(3px); 
+	filter: blur(3px); 
+}  */
+
+.blur {
+    backdrop-filter: blur(3px);
+}
+
+.content {
+    backdrop-filter: none; /* Reset backdrop-filter for content inside the blurred div */
+}
+
+#map {
+    width: 99vw;
+    height: 65vh;
+}
