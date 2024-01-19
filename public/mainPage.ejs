@@ -53,10 +53,10 @@
         <!--Search form-->
         <div>
             <div class="searchView bg-sec rounded-5 m-1 z-1 w-99 me-1 mt-3 px-2">
-                <form action="/" method="post">
+                <form action="/submitLocation" method="post">
                     <div class="d-inline-flex w-100 ">
                         <span class="material-symbols-rounded ms-3 me-3 align-self-center " style="font-size: 35px;"> search </span>
-                        <input class="mt-2 me-1 accordion-item w-100 mb-2 fs-6" name="locationToSearch" type="text" placeholder="Search" >
+                        <input name="locationToSearch" class="mt-2 me-1 accordion-item w-100 mb-2 fs-6" name="locationToSearch" type="text" placeholder="Search" >
                         <button class="btn rounded-5" type="submit" value="sumbit">
                             <span class="material-symbols-rounded mt-1" style="font-size: 30px;">send</span>
                         </button>
@@ -68,10 +68,11 @@
         <!--Weather info part-->
         <div class="weather weatherView row w-99 mx-1 mt-3 px-2">
             <div class="col-12 rounded-5 bg-sec">
-                <h4 class="text-center mt-2">Astana</h4>
-                <h1 class="text-center ">-14°C</h1>
-                <p class="text-center m-0 p-0"><img width="60" height="60" src="https://openweathermap.org/img/wn/03d.png"></p>
-                <h4 class="text-center mt-0">Cloudy</h4>
+                <h4 class="text-center mt-2"><%=responseData.weather.name%></h4>
+                <h1 class="text-center "><%=responseData.weather.main.temp%>°C</h1>
+                <p class="text-center m-0 p-0"><img width="60" height="60" src=<%="https://openweathermap.org/img/wn/" + responseData.weather.weather[0].icon + ".png" %>></p>
+                <h4 class="text-center mt-0"><%=responseData.weather.weather[0].main%></h4>
+                <h6 class="text-center mt-0 text-muted "><%=responseData.weather.weather[0].description%></h6>
             </div>
         </div>
 
@@ -80,13 +81,13 @@
             <!--Feels like part-->
             <div class="col rounded-5 me-2 bg-sec">
                 <div class="d-inline-flex "><span class="material-symbols-rounded align-self-center me-1 ms-2">device_thermostat</span><h5 class="pt-2">Feels like</h5></div>
-                <h2 class="text-center ">-17°C</h2>
+                <h2 class="text-center "><%=responseData.weather.main.feels_like%>°C</h2>
             </div>
 
             <!--Humidity part-->
             <div class="col rounded-5 bg-sec">
                 <div class="d-inline-flex "><span class="material-symbols-rounded align-self-center me-1 ms-2">humidity_percentage</span><h5 class="pt-2">Humidity</h5></div>
-                <h2 class="text-center ">79%</h2>
+                <h2 class="text-center "><%=responseData.weather.main.humidity%>%</h2>
             </div>
         </div>
 
@@ -95,13 +96,13 @@
             <!--Pressure part-->
             <div class="col rounded-5 me-2 bg-sec">
                 <div class="d-inline-flex "><span class="material-symbols-rounded align-self-center me-1 ms-2">blood_pressure</span><h5 class="pt-2">Pressure</h5></div>
-                <h2 class="text-center ">1029 hPA</h2>
+                <h2 class="text-center "><%=responseData.weather.main.pressure%> hPA</h2>
             </div>
 
             <!--Wind part-->
             <div class="col rounded-5 bg-sec">
                 <div class="d-inline-flex "><span class="material-symbols-rounded align-self-center me-1 ms-2">air</span><h5 class="pt-2">Wind speed</h5></div>
-                <h2 class="text-center ">7 km/h</h2>
+                <h2 class="text-center "><%=responseData.weather.wind.speed%> km/h</h2>
             </div>
         </div>
 
@@ -110,7 +111,13 @@
             <div class="col-12 rounded-5 bg-sec">
                 <div class="d-inline-flex "><span class="material-symbols-rounded align-self-center me-1 ms-2">humidity_low</span><h5 class="pt-2">Rain Volume</h5></div>
                 
-                <div class="d-inline-block "></div><p class="text-center fs-2"><span name="rainVolume">0</span> mm for the last 3h</p> </div>
+                <div class="d-inline-block "></div><p class="text-center fs-2"><span name="rainVolume">
+                    <% if(responseData.weather.weather[0].main == "Rain") { %>
+                        <%= responseData.weather.rain ? responseData.weather.rain['1h'] : 0 %>
+                    <% } else { %>
+                        0
+                    <% } %>
+                </span> mm for the last 3h</p> </div>
             </div>
         </div>
 
@@ -123,13 +130,13 @@
             <!--Coordinate-->
             <div class="col rounded-5 me-2 bg-sec">
                 <div class="d-inline-flex "><span class="material-symbols-rounded align-self-center me-1 ms-2">location_on</span><h5 class="pt-2">Coordinate</h5></div>
-                <h2 class="text-center ">51.1693°N, 71.4490°E</h2>
+                <h2 class="text-center "><%= responseData.coordinates.lat.toFixed(4) %>°N, <%= responseData.coordinates.lon.toFixed(4) %>°E</h2>
             </div>
 
             <!--Country Code-->
             <div class="col rounded-5 bg-sec">
                 <div class="d-inline-flex "><span class="material-symbols-rounded align-self-center me-1 ms-2">flag_circle</span><h5 class="pt-2">Country Code</h5></div>
-                <h2 class="text-center ">200</h2>
+                <h2 class="text-center "><%= responseData.weather.sys.country %></h2>
             </div>
         </div>
     </main>
@@ -137,19 +144,6 @@
 
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOox1rbP_ISfHZm-J2eKB-PMQ5Tc9D-M&callback=initMap">
-    </script>
-
-    <script>
-        let map;
-
-        function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 51.1801, lng: 71.44598 },
-            zoom: 8,
-            });
-        }
-
-        window.initMap = initMap;
     </script>
 <script src="./scripts/mainPage.js"></script>
 </body>

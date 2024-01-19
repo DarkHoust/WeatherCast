@@ -1,100 +1,52 @@
-const express = require('express')
-const https = require('https')
-const path = require('path')
-const axios = require('axios')
-require('dotenv').config(path.join(__dirname, '.env'))
-const app = express()
+const express = require('express');
+const path = require('path');
+const axios = require('axios');
 
-app.use(express.static('./public'))
+require('dotenv').config();
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'mainPage.html'))
-})
+const app = express();
 
-// app.get('/', (req, res) => {
-//   var location = 'Astana'
-//   API_KEY = process.env.API_KEY_WEATHER;
-//   const urlGeoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`
-//   const urlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&q=${location}&units=metric`
-//   const urlMap = `https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid=${API_KEY}`
-  
-//   response.on("data", function(data) {
-//     const weatherData = JSON.parse(data)
-//     const temp = weatherData.main.temp
-//     const weatherDescription = weatherData.weather[0].description
-//     const icon = weatherData.weather[0].icon
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-//     const imgURL = `https://openweathermap.org/img/wn/${icon}.png`
-//     res.write(`<h1> Temperature is ${temp} </h1>`)
-//     res.write(`<h1> Wheather is currently ${weatherDescription} </h1>`)
-//     res.write(`<img src=${imgURL} alt='weather icon'>`)
-//     res.send()
-//   })
-// })
-
-app.get('/weatherApi', (req, res) => {
-  var location = 'Astana'
-  API_KEY = process.env.API_KEY_WEATHER;
-  const urlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&q=${location}&units=metric`
-
-  axios.get(urlWeather)
-    .then(response => {
-      const weatherInfo = response.data
-      res.json(weatherInfo)
-    })
-})
-
-app.get('/coordinateAPI/', (req, res) => {
-  var location = req.query.location
-  API_KEY = process.env.API_KEY_WEATHER;
-  const urlGeoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`
-
-  axios.get(urlGeoCoding)
-    .then(response => {
-      const coordinates = response.data
-      const lat = coordinates[0].lat
-      const lon = coordinates[0].lon
-      
-      res.json({'lat' : lat, 'lon' : lon})
-    })
-})
-
-
-app.get('/mapAPI/', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
-    var location = req.query.location;
-    API_KEY = process.env.API_KEY_WEATHER;
+    const location = req.query.location || 'Astana';
+    const response = await axios.get(`http://localhost:3000/dataAPI/?location=${location}`);
+    const responseData = response.data;
 
-    function lonToTile(lon, z) {
-      return Math.floor((lon + 180) / 360 * Math.pow(2, z));
-    }
-
-    function latToTile(lat, z) {
-      return Math.floor(
-        (1 - Math.log(Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180)) / Math.PI) /
-          2 *
-          Math.pow(2, z)
-      );
-    }
-
-    const coordinates = await axios.get(`http://localhost:3000/coordinateAPI/?location=${location}`);
-    var zoom = 6;
-    var x_tile = Math.floor(latToTile(coordinates.data.lat, zoom));
-    var y_tile = Math.floor(lonToTile(coordinates.data.lon, zoom));
-
-    const urlMap = `https://tile.openweathermap.org/map/temp_new/${zoom}/${x_tile}/${y_tile}.png?appid=${API_KEY}`;
-    const response = await axios.get(urlMap, { responseType: 'arraybuffer' });
-
-    // Set the content type to image/png
-    res.setHeader('Content-Type', 'image/png');
-    res.end(response.data, 'binary');
+    res.render(path.join(__dirname, 'public', 'mainPage.ejs'), { responseData });
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
-const PORT = 3000
+app.post('/submitLocation', async (req, res) => {
+  try {
+    const newLocation = req.body.locationToSearch;
+
+    const response = await axios.get(`http://localhost:3000/dataAPI?location=${newLocation}`);
+    const data = response.data;
+
+    res.redirect(`/?location=${newLocation}`);
+  } catch (error) {
+    console.error('Error processing form submission:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+const weatherAPIRoute = require(path.join(__dirname, 'routes', 'weatherAPIRoute.js'));
+app.use('/weatherAPI', weatherAPIRoute);
+
+const coordinateAPIRoute = require(path.join(__dirname, 'routes', 'coordinateAPIRoute.js'));
+app.use('/coordinateAPI/', coordinateAPIRoute);
+
+const dataAPIRoute = require(path.join(__dirname, 'routes', 'dataControlRoute.js'));
+app.use('/dataAPI', dataAPIRoute);
+
+const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Local server is running on http://localhost:${PORT}/`)
-})
+  console.log(`Local server is running on http://localhost:${PORT}/`);
+});
