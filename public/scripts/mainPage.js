@@ -34,18 +34,25 @@ function reloadPage(){
 //Google Map API
 let map;
 
-function initMap() {
-    fetch('http://localhost:3000/dataAPI')
-        .then(response => response.json())
-        .then(responseData => {
-            var lat = responseData.coordinates.lat;
-            var lon = responseData.coordinates.lon;
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: lat, lng: lon },
-                zoom: 10,
-            });
-        })
-        .catch(error => console.error('Error fetching JSON:', error));
+async function initMap() {
+    try {
+        const location = encodeURIComponent(window.location.search.split('location=')[1]);
+
+        const response = await fetch(`http://localhost:3000/dataAPI?location=${location}`);
+        const responseData = await response.json();
+
+        var lat = responseData.coordinates.lat;``
+        var lon = responseData.coordinates.lon;
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: lat, lng: lon },
+            zoom: 10,
+            disableDefaultUI: true
+        });
+    } catch (error) {
+        console.error('Error fetching JSON:', error);
+    }
 }
+
 
 window.initMap = initMap;
