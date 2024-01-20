@@ -45,7 +45,7 @@ Make sure you have **Node.js** and **npm (Node Package Manager)** installed on y
 Clone the repository
 
 ```bash
-git https://github.com/DarkHoust/weather-app
+git clone https://github.com/DarkHoust/WeatherCast.git
 cd weather-app
 ```
 
