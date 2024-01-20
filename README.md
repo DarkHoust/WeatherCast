@@ -46,7 +46,7 @@ Clone the repository
 
 ```bash
 git clone https://github.com/DarkHoust/WeatherCast.git
-cd weather-app
+cd WeatherCast
 ```
 
 #### Step 3: Install Dependencies
