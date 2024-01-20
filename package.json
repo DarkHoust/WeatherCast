@@ -12,11 +12,14 @@
   "dependencies": {
     "2gis-maps": "^3.7.3",
     "axios": "^1.6.5",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "https": "^1.0.0",
+    "install": "^0.13.0",
     "nodemon": "^3.0.2",
+    "npm": "^10.3.0",
     "request-ip": "^3.3.0"
   }
 }

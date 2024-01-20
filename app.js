@@ -5,7 +5,6 @@ require('dotenv').config();
 const app = express();
 
 app.set('view engine', 'ejs');
-app.set('trust proxy', true)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -13,14 +12,14 @@ app.get('/', async (req, res) => {
   try {
     const userLocationResponse = await axios.get(`https://ipinfo.io/json?token=f5ea586269b91b`);
     const userCurrentLocationData = userLocationResponse.data;
-    const userCurrentLocation = userCurrentLocationData.city;
+    let userCurrentLocation = userCurrentLocationData.city;
 
     if (!userCurrentLocation) {
       console.error('Unable to retrieve user location from IP information.');
-      userCurrentLocation = 'astana';
+      userCurrentLocation = 'Astana';
     }
 
-    const location = req.query.location !== undefined ? req.query.location : userCurrentLocation;
+    const location = req.query.location !== undefined ? req.query.location : (userCurrentLocation || 'Astana');
 
     const response = await axios.get(`http://localhost:3000/dataAPI/?location=${location}`);
     const responseData = response.data;

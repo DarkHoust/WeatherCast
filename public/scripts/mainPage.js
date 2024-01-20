@@ -36,12 +36,18 @@ let map;
 
 async function initMap() {
     try {
-        const location = encodeURIComponent(window.location.search.split('location=')[1]);
+        const locationParam = window.location.search.split('location=')[1];
+        const location = locationParam ? encodeURIComponent(locationParam) : 'Astana';
+
 
         const response = await fetch(`http://localhost:3000/dataAPI?location=${location}`);
+        if (!response.ok) {
+            throw new Error(`Error fetching data: ${response.statusText}`);
+        }
         const responseData = await response.json();
 
-        var lat = responseData.coordinates.lat;``
+
+        var lat = responseData.coordinates.lat;
         var lon = responseData.coordinates.lon;
 
         map = new google.maps.Map(document.getElementById("map"), {
