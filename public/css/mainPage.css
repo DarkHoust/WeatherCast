@@ -35,3 +35,8 @@ body{
     width: 99vw;
     height: 65vh;
 }
+
+.h-70 {
+    height: 70vh;
+    width: 100vw;
+}

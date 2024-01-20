@@ -5,6 +5,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         var location = req.query.location !== undefined ? req.query.location : 'Astana';
+
+        const validationResponse = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=ee0aa0c251759f73c0e7c3d67e6b4def`);
+        const isValidLocation = validationResponse.data.length > 0;
+
+        if (!isValidLocation) {
+            return res.status(404).json({ error: 'City not found. Please enter a valid city name.' });
+        }
+
         const weatherAPIResponse = await axios.get(`http://localhost:3000/weatherAPI/?location=${location}`);
         const coordinateAPIResponse = await axios.get(`http://localhost:3000/coordinateAPI/?location=${location}`);
 

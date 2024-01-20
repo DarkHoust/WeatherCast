@@ -26,6 +26,10 @@ function showWeather() {
     });
 }
 
+function redirectToMainPage() {
+    window.location.href = 'http://localhost:3000';
+}
+
 function reloadPage(){
     location.reload();
 }
