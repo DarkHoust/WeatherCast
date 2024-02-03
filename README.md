@@ -20,18 +20,13 @@ The project is structured as a **Node.js**, **Express** application with multipl
 
 ***
 #### API Usage Details
-+ **External APIs**
-    + **OpenWeatherMap APIs**
-        + [Weather Data](https://openweathermap.org/current)
-        + [GeoCoding API](https://openweathermap.org/api/geocoding-api)
-    + **Google Cloud APIs**
-        + [Maps JavaScript API](https://console.cloud.google.com/apis/library/maps-backend.googleapis.com)
-    + **IPINFO APIS**
-        + [ipinfo API](https://ipinfo.io)
-+ **Internal APIs**
-    + **CoordinatesAPI**: This API fetches geographic coordinates (latitude and longitude) for a given location.
-    + **DataAPI**: This API combines data from other APIs. It serves as a higher-level API that fetches weather information and coordinates based on the provided location.
-    + **WeatherAPI**: This API fetches weather information for a given location using the OpenWeatherMap Weather API.
++ **OpenWeatherMap APIs**
+  + [Weather Data](https://openweathermap.org/current)
+    + [GeoCoding API](https://openweathermap.org/api/geocoding-api)
+  + **Google Cloud APIs**
+    + [Maps JavaScript API](https://console.cloud.google.com/apis/library/maps-backend.googleapis.com)
+  + **IPINFO APIS**
+    + [ipinfo API](https://ipinfo.io)
 
 ***
 ### Installations
