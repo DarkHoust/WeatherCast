@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
   try {
-    const userLocationResponse = await axios.get(`https://ipinfo.io/json?token=f5ea586269b91b`);
+    const userLocationResponse = await axios.get(`https://ipinfo.io/json?token=${process.env.IP_INFO_TOKEN}`);
     const userCurrentLocationData = userLocationResponse.data;
     let userCurrentLocation = userCurrentLocationData.city;
 

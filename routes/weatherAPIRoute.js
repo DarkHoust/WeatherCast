@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     var location = req.query.location !== undefined ? req.query.location : 'Astana';
 
     API_KEY = process.env.API_KEY_WEATHER;
-    const urlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=ee0aa0c251759f73c0e7c3d67e6b4def&q=${location}&units=metric`
+    const urlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${process.env.API_KEY_WEATHER}&q=${location}&units=metric`
 
     axios.get(urlWeather)
     .then(response => {
