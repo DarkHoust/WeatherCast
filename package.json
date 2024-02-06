@@ -16,8 +16,10 @@
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "express-session": "^1.18.0",
     "https": "^1.0.0",
     "install": "^0.13.0",
+    "mongoose": "^8.1.1",
     "nodemon": "^3.0.2",
     "npm": "^10.3.0",
     "request-ip": "^3.3.0"

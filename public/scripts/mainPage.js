@@ -1,29 +1,49 @@
 function showMap() {
-    let toHide = document.querySelectorAll(".weather");
-    let containers = document.querySelectorAll(".map");
+    let weatherView = document.querySelectorAll(".weather");
+    let mapView = document.querySelectorAll(".map");
+    let accountView = document.querySelectorAll(".account");
+    let searchView = document.querySelectorAll('.searchView')
 
-    containers.forEach((container) => {
+    weatherView.forEach((container) => {
+        container.classList.add("d-none");
+    });
+
+    mapView.forEach((container) => {
         container.classList.remove("d-none");
     });
 
-    toHide.forEach((container) => {
-        container.classList.add("d-none");
+    accountView.forEach((container) => {
+        container.classList.add("d-none")
+    });
+
+    searchView.forEach((container) => {
+        container.classList.remove("d-none")
     });
     //Updating map's location
     initMap();
 }
 
 function showWeather() {
-    let containers = document.querySelectorAll(".weather");
-    let toHide = document.querySelectorAll(".map");
+    let weatherView = document.querySelectorAll(".weather");
+    let mapView = document.querySelectorAll(".map");
+    let accountView = document.querySelectorAll(".account");
+    let searchView = document.querySelectorAll('.searchView')
 
-    containers.forEach((container) => {
+    weatherView.forEach((container) => {
         container.classList.remove("d-none");
     });
 
-    toHide.forEach((container) => {
+    mapView.forEach((container) => {
         container.classList.add("d-none");
     });
+
+    accountView.forEach((container) => {
+        container.classList.add("d-none")
+    })
+
+    searchView.forEach((container) => {
+        container.classList.remove("d-none")
+    })
 }
 
 function redirectToMainPage() {
@@ -32,6 +52,33 @@ function redirectToMainPage() {
 
 function reloadPage(){
     location.reload();
+}
+
+function showAccountInfo() {
+    let weatherView = document.querySelectorAll(".weather");
+    let mapView = document.querySelectorAll(".map");
+    let accountView = document.querySelectorAll(".account");
+    let searchView = document.querySelectorAll('.searchView')
+
+    weatherView.forEach((container) => {
+        container.classList.add("d-none");
+    });
+
+    mapView.forEach((container) => {
+        container.classList.add("d-none");
+    });
+
+    accountView.forEach((container) => {
+        container.classList.remove("d-none")
+    })
+
+    searchView.forEach((container) => {
+        container.classList.add("d-none")
+    })
+}
+
+function logOut() {
+    window.location.replace('/auth')
 }
 
 

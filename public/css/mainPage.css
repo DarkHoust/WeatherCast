@@ -15,6 +15,10 @@ body{
     width: 99.3%;
 }
 
+.bg-button {
+    background-color: rgb(71, 168, 212);
+}
+
 /* .blur { 
 	-webkit-filter: blur(3px); 
 	-moz-filter: blur(3px); 
