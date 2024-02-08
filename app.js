@@ -4,7 +4,11 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const session = require('express-session')
 const requireAuth = require('./routes/requireAuth');
-mongoose.connect('mongodb+srv://darkhost:2005sul@aitu.c93ubxo.mongodb.net/');
+
+mongoose.connect('mongodb+srv://darkhost:123@aitu.c93ubxo.mongodb.net/')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(error => console.error('MongoDB connection error:', error));
+
 require('dotenv').config();
 const app = express();
 
@@ -24,6 +28,7 @@ app.set('views', path.join(__dirname,'public' ,'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.get('/', requireAuth ,async (req, res) => {
   try {
     const userInfo = req.session.user;
@@ -41,8 +46,10 @@ app.get('/', requireAuth ,async (req, res) => {
 
     const response = await axios.get(`http://localhost:3000/dataAPI/?location=${location}`);
     const responseData = response.data;
+    const currentTimeResponse = await axios.get(`http://localhost:3000/timeAPI?location=${location}`);
+    const currentTimeData = currentTimeResponse.data;
 
-    res.render(path.join(__dirname, 'public', 'views', 'mainPage.ejs'), { responseData, userInfo });
+    res.render(path.join(__dirname, 'public', 'views', 'mainPage.ejs'), { responseData, userInfo, currentTimeData });
   } catch (error) {
     console.error('Error fetching user location:', error.message);
     if (error.response) {
@@ -83,7 +90,6 @@ app.post('/auth', async (req, res) => {
   }
 });
 
-
 app.post('/registration', async (req, res) => {
   try{
     let userName = req.body.userName;
@@ -112,10 +118,6 @@ app.post('/registration', async (req, res) => {
 app.post('/submitLocation', async (req, res) => {
   try {
     const newLocation = req.body.locationToSearch;
-
-    const response = await axios.get(`http://localhost:3000/dataAPI?location=${newLocation}`);
-    const data = response.data;
-
     res.redirect(`/?location=${newLocation}`);
   } catch (error) {
     console.error('Error processing form submission:', error.message);
@@ -123,8 +125,9 @@ app.post('/submitLocation', async (req, res) => {
   }
 });
 
+app.use('/timeAPI', require(path.join(__dirname, 'routes', 'timeAPIRoute.js')))
 app.use('/weatherAPI', require(path.join(__dirname, 'routes', 'weatherAPIRoute.js')));
-app.use('/coordinateAPI/', require(path.join(__dirname, 'routes', 'coordinateAPIRoute.js')));
+app.use('/coordinateAPI', require(path.join(__dirname, 'routes', 'coordinateAPIRoute.js')));
 app.use('/dataAPI', require(path.join(__dirname, 'routes', 'dataControlRoute.js')));
 
 app.all("*", async (req,res) => {

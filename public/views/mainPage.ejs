@@ -80,6 +80,7 @@
                 <p class="text-center m-0 p-0"><img width="60" height="60" src=<%="https://openweathermap.org/img/wn/" + responseData.weather.weather[0].icon + ".png" %>></p>
                 <h4 class="text-center mt-0"><%=responseData.weather.weather[0].main%></h4>
                 <h6 class="text-center mt-0 text-muted "><%=responseData.weather.weather[0].description%></h6>
+                <h6 class="text-center mt-0 text-muted">Time: <%=currentTimeData.time%></h6>
             </div>
         </div>
 
@@ -151,14 +152,20 @@
         <div id="account" class="account d-none">
             <div class="row bg-sec rounded-5 mt-3 mx-2 py-2">
                 <h2 class="mt-1 text-center">Welcome <%= userInfo.username %></h2>
-                <h4>Mail: <%= userInfo.mail %></h4>
-                <h4>Password: <%= userInfo.password %></h4>
-
-                <div class="w-100 text-center py-3">
-                    <span id="logOutButton" class="bg-button material-symbols-rounded col-3 text-center my-3 shadow rounded-5 mx-3" style="font-size: 45px;" onclick="logOut()">
-                        logout
-                    </span>
+                <div class="row container-fluid ">
+                    <div class="col-9">
+                        <h4>Mail: <%= userInfo.mail %></h4>
+                        <h4>Password: <%= userInfo.password %></h4>
+                    </div>
+                    <div class="w-100 text-center py-3 col-1">
+                        <span id="logOutButton" class="bg-button material-symbols-rounded col-3 text-center my-3 shadow rounded-5 mx-3" style="font-size: 45px;" onclick="logOut()">
+                            logout
+                        </span>
+                    </div>
                 </div>
+                
+
+                
                 
             </div>
         </div>

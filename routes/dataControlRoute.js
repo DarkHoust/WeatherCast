@@ -14,14 +14,18 @@ router.get('/', async (req, res) => {
         }
 
         const weatherAPIResponse = await axios.get(`http://localhost:3000/weatherAPI/?location=${location}`);
-        const coordinateAPIResponse = await axios.get(`http://localhost:3000/coordinateAPI/?location=${location}`);
-
         const weatherData = weatherAPIResponse.data;
+
+        const coordinateAPIResponse = await axios.get(`http://localhost:3000/coordinateAPI/?location=${location}`);
         const coordinateData = coordinateAPIResponse.data;
 
+        const currentTimeResponse = await axios.get(`https://timeapi.io/api/Time/current/coordinate?latitude=${coordinateData.lat}&longitude=${coordinateData.lon}`);
+        const currentTime = currentTimeResponse.data;
+        
         const combinedData = {
             weather: weatherData,
-            coordinates: coordinateData
+            coordinates: coordinateData,
+            time: currentTime
         };
 
         res.json(combinedData);
