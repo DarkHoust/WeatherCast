@@ -6,8 +6,7 @@ const mongoose = require('mongoose');
 router.get('/', async (req, res) => {
     try {
         const location = req.query.location !== undefined ? req.query.location : 'Astana';
-        const API_KEY = process.env.API_KEY_WEATHER;
-        const urlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&q=${location}&units=metric`;
+        const urlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=ee0aa0c251759f73c0e7c3d67e6b4def&q=${location}&units=metric`;
 
         const response = await axios.get(urlWeather);
         const weatherInfo = response.data;
