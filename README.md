@@ -20,13 +20,17 @@ The project is structured as a **Node.js**, **Express** application with multipl
 
 ***
 #### API Usage Details
-+ **OpenWeatherMap APIs**
++ **OpenWeatherMap API**
   + [Weather Data](https://openweathermap.org/current)
     + [GeoCoding API](https://openweathermap.org/api/geocoding-api)
-  + **Google Cloud APIs**
+  + **Google Cloud API**
     + [Maps JavaScript API](https://console.cloud.google.com/apis/library/maps-backend.googleapis.com)
-  + **IPINFO APIS**
+  + **IPINFO API**
     + [ipinfo API](https://ipinfo.io)
+  + **Time API**
+    + [TimeApi](https://timeapi.io)
+
+
 
 ***
 ### Installations
@@ -48,7 +52,7 @@ cd WeatherCast
 
 Install the required **npm packages** by running the following command in your terminal:
 ```bash
-sudo npm install 
+npm install 
 ```
 This will install the necessary dependencies specified in your **package.json** file.
 
