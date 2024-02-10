@@ -1,6 +1,6 @@
 # WeatherCast
 
-**WeatherCast** is a simple weather application that provides real-time weather information based on user input or current location. It uses APIs to gather data and display it on a user-friendly interface based on **Material UI**.
+**[WeatherCast](https://weathercast.cyclic.app)** is a simple weather application that provides real-time weather information based on user input or current location. It uses APIs to gather data and display it on a user-friendly interface based on **Material UI**.
 
 <img src='./public/images/WeatherCast.png' width='100%' height='auto'>
 
