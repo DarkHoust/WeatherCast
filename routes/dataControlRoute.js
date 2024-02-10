@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
             return res.status(404).json({ error: 'City not found. Please enter a valid city name.' });
         }
 
-        const weatherAPIResponse = await axios.get(`http://localhost:3000/weatherAPI/?location=${location}`);
+        const weatherAPIResponse = await axios.get(`https://weathercast.cyclic.app/weatherAPI/?location=${location}`);
         const weatherData = weatherAPIResponse.data;
 
-        const coordinateAPIResponse = await axios.get(`http://localhost:3000/coordinateAPI/?location=${location}`);
+        const coordinateAPIResponse = await axios.get(`https://weathercast.cyclic.app/coordinateAPI/?location=${location}`);
         const coordinateData = coordinateAPIResponse.data;
 
         const currentTimeResponse = await axios.get(`https://timeapi.io/api/Time/current/coordinate?latitude=${coordinateData.lat}&longitude=${coordinateData.lon}`);

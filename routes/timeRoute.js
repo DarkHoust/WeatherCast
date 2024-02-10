@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     try {
         const location = req.query.location !== undefined ? req.query.location : 'Astana';
 
-        const responseData = await axios.get(`http://localhost:3000/dataAPI/?location=${location}`);
+        const responseData = await axios.get(`https://weathercast.cyclic.app/dataAPI/?location=${location}`);
         const data = responseData.data;
         var currentTimeResponse = await axios.get(`https://timeapi.io/api/Time/current/coordinate?latitude=${data.weather.coord.lat}&longitude=${data.weather.coord.lon}`);
         var currentTime = currentTimeResponse.data;

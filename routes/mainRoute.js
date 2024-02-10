@@ -20,14 +20,14 @@ router.get('/', requireAuth, async (req, res) => {
 
         const location = req.query.location !== undefined ? req.query.location : (userCurrentLocation || 'Astana');
 
-        const response = await axios.get(`http://localhost:3000/dataAPI/?location=${location}`);
+        const response = await axios.get(`https://weathercast.cyclic.app/dataAPI/?location=${location}`);
         const responseData = response.data;
-        const currentTimeResponse = await axios.get(`http://localhost:3000/timeAPI?location=${location}`);
+        const currentTimeResponse = await axios.get(`https://weathercast.cyclic.app/timeAPI?location=${location}`);
         const currentTimeData = currentTimeResponse.data;
 
         res.render(path.join(__dirname, '..', 'public', 'views', 'mainPage.ejs'), { responseData, userInfo, currentTimeData });
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error(error.message);
         res.status(500).send('Internal Server Error');
     }
 });
