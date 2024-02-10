@@ -81,8 +81,7 @@ function showWeather() {
 }
 
 function redirectToMainPage() {
-    window.location.href = 'http://localhost:3000';
-    initMap();
+    window.location.href = '/';
 }
 
 function reloadPage(){
@@ -116,3 +115,6 @@ function logOut() {
     window.location.replace('/auth')
 }
 
+function redirectToAdmin() {
+    window.location.href = "/admin";
+}
