@@ -1,11 +1,32 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    mail: String,
-    password: String,
-    history: [{ search: String, timestamp: Date }],
-    isAdmin: Boolean
-}, { timestamps: true });
+    username: {
+        type: String,
+    },
+    email: {
+        type: String,
+    },
+    password: {
+        type: String,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    searchHistory: [
+        {
+        cityName: {
+            type: String,
+        },
+        timestamp: {
+            type: Date,
+            default: Date.now
+        }
+        }
+    ]
+});
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

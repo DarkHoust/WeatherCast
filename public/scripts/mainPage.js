@@ -36,7 +36,8 @@ function showMap() {
     let weatherView = document.querySelectorAll(".weather");
     let mapView = document.querySelectorAll(".map");
     let accountView = document.querySelectorAll(".account");
-    let searchView = document.querySelectorAll('.searchView')
+    let searchView = document.querySelectorAll('.searchView');
+    let historyView = document.querySelectorAll('.history');
 
     weatherView.forEach((container) => {
         container.classList.add("d-none");
@@ -53,15 +54,49 @@ function showMap() {
     searchView.forEach((container) => {
         container.classList.remove("d-none")
     });
+
+    historyView.forEach((container) => {
+        container.classList.add('d-none');
+    })
+
     //Updating map's location
     initMap();
+}
+
+function showHistory() {
+    let weatherView = document.querySelectorAll(".weather");
+    let mapView = document.querySelectorAll(".map");
+    let accountView = document.querySelectorAll(".account");
+    let searchView = document.querySelectorAll('.searchView');
+    let historyView = document.querySelectorAll('.history');
+
+    weatherView.forEach((container) => {
+        container.classList.add("d-none");
+    });
+
+    mapView.forEach((container) => {
+        container.classList.add("d-none");
+    });
+
+    accountView.forEach((container) => {
+        container.classList.add("d-none")
+    });
+
+    searchView.forEach((container) => {
+        container.classList.add("d-none")
+    });
+
+    historyView.forEach((container) => {
+        container.classList.remove('d-none');
+    })
 }
 
 function showWeather() {
     let weatherView = document.querySelectorAll(".weather");
     let mapView = document.querySelectorAll(".map");
     let accountView = document.querySelectorAll(".account");
-    let searchView = document.querySelectorAll('.searchView')
+    let searchView = document.querySelectorAll('.searchView');
+    let historyView = document.querySelectorAll('.history');
 
     weatherView.forEach((container) => {
         container.classList.remove("d-none");
@@ -77,6 +112,10 @@ function showWeather() {
 
     searchView.forEach((container) => {
         container.classList.remove("d-none")
+    })
+
+    historyView.forEach((container) => {
+        container.classList.add('d-none');
     })
 }
 
@@ -92,7 +131,8 @@ function showAccountInfo() {
     let weatherView = document.querySelectorAll(".weather");
     let mapView = document.querySelectorAll(".map");
     let accountView = document.querySelectorAll(".account");
-    let searchView = document.querySelectorAll('.searchView')
+    let searchView = document.querySelectorAll('.searchView');
+    let historyView = document.querySelectorAll('.history');
 
     weatherView.forEach((container) => {
         container.classList.add("d-none");
@@ -104,11 +144,15 @@ function showAccountInfo() {
 
     accountView.forEach((container) => {
         container.classList.remove("d-none")
-    })
+    });
 
     searchView.forEach((container) => {
         container.classList.add("d-none")
-    })
+    });
+    
+    historyView.forEach((container) => {
+        container.classList.add('d-none');
+    });
 }
 
 function logOut() {
@@ -118,3 +162,8 @@ function logOut() {
 function redirectToAdmin() {
     window.location.href = "/admin";
 }
+
+// function formatDate(timestamp) {
+//     const date = new Date(timestamp);
+//     return date.toLocaleString();
+// }

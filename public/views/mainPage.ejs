@@ -7,6 +7,9 @@
     <link rel="icon" type="image/x-icon" href="../images/favicon.png">
     <link rel="stylesheet" href="../styles/mainPage.css">
 
+    <!--Main Scripts-->
+    <script src="../scripts/mainPage.js"></script>
+
     <!--Bootstrap v5 scripts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -39,8 +42,8 @@
                         partly_cloudy_day
                     </span>
 
-                    <span id="refreshButton" class="material-symbols-rounded col-3 border-end border-black border-2" style="font-size: 35px;" onclick="reloadPage()">
-                        refresh
+                    <span id="refreshButton" class="material-symbols-rounded col-3 border-end border-black border-2" style="font-size: 35px;" onclick="showHistory()">
+                        history
                     </span>
 
                     <span id="accountButton" class="material-symbols-rounded col-3" style="font-size: 35px;" onclick="showAccountInfo()">
@@ -170,6 +173,23 @@
                 <%}%>
             </div>
         </div>
+
+        <!--History Page part-->
+        <div id="historyPart" class="history d-none">
+            <div class="bg-sec rounded-5 mt-3 mx-2">
+                <p class="fs-2 fw-bold ms-4 pt-2">Search History</p>
+        
+                <div id="historyData" class="historyData">
+                    <% searchHistory.forEach(entry => { %>
+                        <hr class="py-0 my-0 ">
+                        <div class="d-flex ms-3 pb-0 mt-2">
+                            <p class="">City: <span class="fw-bold"><%= entry.cityName %></span></p>
+                            <p class="ms-3">Last time: <span class="fw-bold "><%= new Date(entry.timestamp).toLocaleString() %></span></p>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -182,8 +202,5 @@
     <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOox1rbP_ISfHZm-J2eKB-PMQ5Tc9D-M&callback=initMap&language=en">
     </script>
-
-    <!--Main Scripts-->
-    <script src="../scripts/mainPage.js"></script>
 </body>
 </html>
