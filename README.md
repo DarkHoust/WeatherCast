@@ -18,6 +18,8 @@ The project is structured as a **Node.js**, **Express** application with multipl
 
 + **Environment Variables**: Sensitive information such as API keys is stored in environment variables (.env) to enhance security.
 
++ **Convenient User Experience: With the introduction of a history search feature, users can now easily access their past search results. This means that whenever a user revisits the application, they will immediately see the weather information for their last searched location. This saves time and effort, especially for users who frequently check the weather for specific locations.
+
 ***
 #### API Usage Details
 + **OpenWeatherMap API**
