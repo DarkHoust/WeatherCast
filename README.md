@@ -36,7 +36,7 @@ The project is structured as a **Node.js**, **Express** application with multipl
     + [TimeApi](https://timeapi.io)
 
 ***
-### Installations
+### Installations (local)
 
 #### Step 1: Install Node.js and npm
 
