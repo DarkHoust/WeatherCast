@@ -35,7 +35,9 @@
                                 <th scope="col">User Name</th>
                                 <th scope="col">Password</th>
                                 <th scope="col">Mail</th>
-                                <th scope="col">Admin Permission</th>
+                                <th scope="col">Admin</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Updated At</th>
                                 <th scope="col">Options</th>
                             </tr>
                         </thead>
@@ -46,7 +48,15 @@
                                 <td><%= user.username %></td>
                                 <td><%= user.password %></td>
                                 <td><%= user.mail %></td>
-                                <td><%= user.isAdmin%></td>
+                                <td>
+                                    <% if (user.isAdmin) { %>
+                                        <span class="material-symbols-rounded">check</span>
+                                    <% } else { %>
+                                        <span class="material-symbols-rounded">close</span>
+                                    <% } %>
+                                </td>
+                                <td><%= user.createdAt.toLocaleString() %></td>
+                                <td><%= user.updatedAt.toLocaleString() %></td>
                                 <td class="d-flex justify-content-center">
                                     <form method="post" action="/deleteUser">
                                         <input type="hidden" name="userId" value="<%= user._id %>">

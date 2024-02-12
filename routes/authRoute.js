@@ -31,11 +31,11 @@ router.post('/auth', async (req, res) => {
     }
 });
 
-router.get('/register', async (req, res) => {
+router.get('/registration', async (req, res) => {
     res.render(path.join(__dirname, '..', 'public', 'views', 'RegistrationPage.ejs'))
 });
 
-router.post('/register', async (req, res) => {
+router.post('/registration', async (req, res) => {
     try{
         let userName = req.body.userName;
         let userMail = req.body.userMail;

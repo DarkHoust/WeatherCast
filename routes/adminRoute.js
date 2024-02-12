@@ -29,13 +29,20 @@ router.post('/users', async (req, res) => {
 router.post('/editUser', async (req, res) => {
     try {
         const { userId, usernameEdit, passwordEdit, mailEdit } = req.body;
-        await User.findByIdAndUpdate(userId, { username: usernameEdit, password: passwordEdit, mail: mailEdit });
+        const currentDate = new Date();
+        await User.findByIdAndUpdate(userId, {
+            username: usernameEdit,
+            password: passwordEdit,
+            mail: mailEdit,
+            updatedAt: currentDate
+        });
         res.redirect('/admin');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 });
+
     
 router.post('/deleteUser', async (req, res) => {
     try {
