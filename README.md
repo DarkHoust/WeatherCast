@@ -2,6 +2,8 @@
 
 **[WeatherCast](https://weathercast.cyclic.app)** is a simple weather application that provides real-time weather information based on user input or current location. It uses APIs to gather data and display it on a user-friendly interface based on **Material UI**.
 
+(password: sultan)
+
 <img src='./public/images/WeatherCast.png' width='100%' height='auto'>
 
 ***
@@ -18,6 +20,11 @@ The project is structured as a **Node.js**, **Express** application with multipl
 
 + **Environment Variables**: Sensitive information such as API keys is stored in environment variables (.env) to enhance security.
 
++ **Convenient User Experience**: With the introduction of a history search feature, users can now easily access their past search results. This means that whenever a user revisits the application, they will immediately see the weather information for their last searched location. This saves time and effort, especially for users who frequently check the weather for specific locations.
+
++ **User Account Management**: WeatherCast's admins ensures a more secure and efficient user experience for both administrators and regular users alike
+
++ **Remote Access**: Access WeatherCast conveniently on our remote host at **weather-cast.cyclic.app** to retrieve real-time weather information and view your search history with ease.
 ***
 #### API Usage Details
 + **OpenWeatherMap API**
@@ -30,10 +37,8 @@ The project is structured as a **Node.js**, **Express** application with multipl
   + **Time API**
     + [TimeApi](https://timeapi.io)
 
-
-
 ***
-### Installations
+### Installations (local)
 
 #### Step 1: Install Node.js and npm
 
@@ -70,5 +75,6 @@ Open your **web browser** and go to "**http://localhost:3000**" to access to **W
 ***
 #### Author 
 Sultan **'DarkHost'**
+
 
 <img src="https://i.imgur.com/D6wYt6S.jpg" width="100%">
