@@ -19,6 +19,7 @@ router.get('/', requireAuth, async (req, res) => {
 
         // Check if current city name already exists in the search history
         const isCityAlreadySearched = searchHistory.some(item => item.cityName === lastSearchedCity);
+        const lastSearchedCityWeather = searchHistory.length > 0 ? searchHistory[searchHistory.length - 1].responseData : null;
 
         if (!isCityAlreadySearched) {
             const timestamp = new Date();
@@ -30,7 +31,7 @@ router.get('/', requireAuth, async (req, res) => {
         const currentTimeResponse = await axios.get(`http://localhost:3000/timeAPI?location=${lastSearchedCity}`);
         const currentTimeData = currentTimeResponse.data;
 
-        res.render(path.join(__dirname, '..', 'public', 'views', 'mainPage.ejs'), { responseData, userInfo, currentTimeData, searchHistory });
+        res.render(path.join(__dirname, '..', 'public', 'views', 'mainPage.ejs'), { responseData, userInfo, currentTimeData, searchHistory, lastSearchedCityWeather});
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Internal Server Error');
