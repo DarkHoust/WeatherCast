@@ -2,6 +2,8 @@
 
 **[WeatherCast](https://weathercast.cyclic.app)** is a simple weather application that provides real-time weather information based on user input or current location. It uses APIs to gather data and display it on a user-friendly interface based on **Material UI**.
 
+(password: sultan)
+
 <img src='./public/images/WeatherCast.png' width='100%' height='auto'>
 
 ***
@@ -73,5 +75,6 @@ Open your **web browser** and go to "**http://localhost:3000**" to access to **W
 ***
 #### Author 
 Sultan **'DarkHost'**
+
 
 <img src="https://i.imgur.com/D6wYt6S.jpg" width="100%">
