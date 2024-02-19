@@ -11,13 +11,19 @@ router.get('/', requireAuth, async (req, res) => {
 
         const user = await User.findOne({ username: userInfo.username });
         const searchHistory = user && user.searchHistory ? user.searchHistory : [];
-        
-        const lastSearchedCity = searchHistory.length > 0 ? searchHistory[searchHistory.length - 1].cityName : 'Astana';
+
+        let lastSearchedCity;
+        if (searchHistory.length > 0) {
+            lastSearchedCity = searchHistory[searchHistory.length - 1].cityName;
+        } else {
+            const ipInfoResponse = await axios.get(`https://ipinfo.io/?token=f5ea586269b91b`);
+            const ipInfoData = ipInfoResponse.data;
+            lastSearchedCity = ipInfoData.city;
+        }
 
         const response = await axios.get(`http://localhost:3000/dataAPI/?location=${lastSearchedCity}`);
         const responseData = response.data;
 
-        // Check if current city name already exists in the search history
         const isCityAlreadySearched = searchHistory.some(item => item.cityName === lastSearchedCity);
         const lastSearchedCityWeather = searchHistory.length > 0 ? searchHistory[searchHistory.length - 1].responseData : null;
 
@@ -37,9 +43,6 @@ router.get('/', requireAuth, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-
-
-
 
 router.post('/submitLocation', async (req, res) => {
     try {
@@ -69,8 +72,5 @@ router.post('/submitLocation', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
-
 
 module.exports = router;
