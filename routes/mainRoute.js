@@ -3,6 +3,7 @@ const router = express.Router();
 const requireAuth = require('../middlewares/requireAuth');
 const axios = require('axios');
 const path = require('path');
+require('dotenv').config();
 const User = require('../config/userSchema');
 
 router.get('/', requireAuth, async (req, res) => {
@@ -31,7 +32,7 @@ router.get('/', requireAuth, async (req, res) => {
         const currentTimeResponse = await axios.get(`http://localhost:3000/timeAPI?location=${lastSearchedCity}`);
         const currentTimeData = currentTimeResponse.data;
 
-        res.render(path.join(__dirname, '..', 'public', 'views', 'mainPage.ejs'), { responseData, userInfo, currentTimeData, searchHistory, lastSearchedCityWeather});
+        res.render(path.join(__dirname, '..', 'public', 'views', 'mainPage.ejs'), { responseData, userInfo, currentTimeData, searchHistory, lastSearchedCityWeather, googleAPI: process.env.GOOGLE_API_KEY});
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Internal Server Error');

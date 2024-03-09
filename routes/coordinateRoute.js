@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 const axios = require('axios')
-require('dotenv').config(path.join(__dirname,'..','.env'))
+require('dotenv').config();
 
 
 router.get('/', (req, res) => {
     var location = req.query.location !== undefined ? req.query.location : 'Astana';
     API_KEY = process.env.API_KEY_WEATHER;
-    const urlGeoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=ee0aa0c251759f73c0e7c3d67e6b4def`
+    const urlGeoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${process.env.GEO_CODING_API}`
 
     axios.get(urlGeoCoding)
     .then(response => {
